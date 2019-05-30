@@ -1,0 +1,56 @@
+﻿@page "/createstudent"
+@using StudentRegBlazor.Shared
+@inject HttpClient Http
+@inject IUriHelper uriHelper
+
+
+<h3>Create</h3>
+<div>
+
+    <div class="form-group">
+        <label>Student ID</label>
+        <input type="text" class="form-control" bind="@stu.Id" />
+    </div>
+    <div class="form-group">
+        <label>First Name</label>
+        <input type="text" class="form-control" bind="@stu.FirstName" />
+    </div>
+    <div class="form-group">
+        <label>Middle Initial</label>
+        <input type="text" class="form-control" bind="@stu.Mi" />
+    </div>
+    <div class="form-group">
+        <label>Last Name</label>
+        <input type="text" class="form-control" bind="@stu.LastName" />
+    </div>
+    <div class="form-group">
+        <label>Birthdate</label>
+        <input type="date" format-value="yyyy-MM-dd" class="form-control" bind="@stu.Birthdate" />
+    </div>
+    <div class="form-group">
+        <label>Address</label>
+        <input type="text" class="form-control" id="Address" bind="@stu.Address" />
+    </div>
+    <div class="form-group" style="float:left">
+
+        <button class="btn btn-outline-primary" onclick=@(async () => await HandleValidSubmit())>Save</button>
+
+    </div>
+
+</div>
+
+@functions {
+
+
+
+    private StudentShared stu { get; set; } = new StudentShared();
+
+
+    protected async Task HandleValidSubmit()
+    {
+         await Http.PostJsonAsync("http://localhost:56834/api/Student/Create", stu);
+        uriHelper.NavigateTo("fetchstudentdata");
+    }
+
+
+}

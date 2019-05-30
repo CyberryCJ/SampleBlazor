@@ -1,0 +1,71 @@
+﻿@inject Blazored.LocalStorage.ILocalStorageService localStorage
+
+<div class="top-row pl-4 navbar navbar-dark">
+    <a class="navbar-brand" href="">Registration</a>
+    <button class="navbar-toggler" onclick="@ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
+
+<div class="@NavMenuCssClass" onclick="@ToggleNavMenu">
+    <ul class="nav flex-column">
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> HOME
+            </NavLink>
+        </li>
+
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="fetchstudentdata">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> STUDENTS
+            </NavLink>
+        </li>
+
+        <li class="nav-item px-3">
+
+            <button type="button" class="btn btn-outline-primary  btn-block text-left" onclick="@LoginCheck" data-toggle="modal" data-target="#LoginModalForm">
+                <span class="@LoginIcon" aria-hidden="true"></span> @LoginName
+            </button>
+        </li>
+
+
+
+    </ul>
+
+</div>
+
+
+
+
+
+@functions {
+    bool collapseNavMenu = true;
+    [Parameter]
+    public string LoginName { get; set; } = "LOGIN";
+    [Parameter]
+    public string LoginIcon { get; set; } = "oi oi-lock-locked";
+
+    string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    protected async void LoginCheck()
+    {
+        if (LoginName == "LOGIN")
+        {
+            LoginName = "LOGOUT";
+            LoginIcon = "oi oi-lock-unlocked";
+        }
+        else
+        {
+            LoginName = "LOGIN";
+            LoginIcon = "oi oi-lock-locked";
+     
+        }
+    }
+
+
+}
